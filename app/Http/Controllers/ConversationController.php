@@ -73,7 +73,12 @@ class ConversationController extends Controller
 
         $conversations = Conversation::get()->all();
 
-        return view('app.conversations.show', compact('conversation', 'conversations'));
+        $chats = $conversation->chats()->latest()->get();
+
+        //reverse the order of the chats
+        $chats = $chats->reverse();
+
+        return view('app.conversations.show', compact('conversation', 'conversations', 'chats'));
     }
 
     /**

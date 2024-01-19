@@ -1,6 +1,8 @@
 <x-app-layout>
 
 
+    @include('channels/navigation' , ['channel' => $channel])
+
 
     <div class="flex flex-col items-center justify-center h-full w-full">
         <div class="flex flex-col items-center justify-center">

@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
             ]);
         $this->call(PermissionsSeeder::class);
 
-        $this->call(AttachmentSeeder::class);
-        $this->call(ChannelSeeder::class);
-        $this->call(ChatSeeder::class);
-        $this->call(ConversationSeeder::class);
+        //$this->call(AttachmentSeeder::class);
+       // $this->call(ChannelSeeder::class);
+        //$this->call(ChatSeeder::class);
+        //$this->call(ConversationSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(UserConversationSeeder::class);
+        //$this->call(UserConversationSeeder::class);
     }
 }
