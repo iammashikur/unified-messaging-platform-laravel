@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chat;
-
+use App\Models\Conversation;
+use App\Models\Channel;
+use Illuminate\Support\Str;
 
 class ChatController extends Controller
 {
@@ -18,23 +20,26 @@ class ChatController extends Controller
         ]);
 
 
+        //get conversation
+        $conversation = Conversation::find($request->id);
+        //get channel
+        $channel = $conversation->channel;
 
-        Chat::create([
-            'content' => $request->content,
-            'user_id' => auth()->user()->id,
-            'conversation_id' => $request->id,
-            'status' => 1,
-
-        ]);
+        //load channel class
 
 
-        return redirect()->back()->with('success', 'Message sent successfully.');
+        include_once app_path('channels') . '/' . $channel->name . '/channel.php';
 
+        $class = Str::ucfirst($channel->name);
 
+        $channel = new $class();
 
+        if($channel->send($request->content, $conversation->id)){
+            return redirect()->back()->with('success', 'Message sent successfully.');
+        }
 
-        } catch(\Exception $e){
-            return redirect()->back()->with('error', $e->getMessage());
+        } catch(Exception $e){
+            return redirect()->back()->with('error', 'Message not sent.');
         }
     }
 

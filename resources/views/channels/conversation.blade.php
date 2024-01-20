@@ -1,25 +1,20 @@
 <x-app-layout>
 
 
-    @include('channels/navigation')
-
+    @include('channels/navigation', ['conversations' => $conversations, 'channel' => $channel])
 
     <!-- Chat content -->
-    <div class="flex-1 flex flex-col bg-gray-700 overflow-hidden">
+    <div class="flex-1 flex flex-col bg-gray-900 overflow-hidden">
         <!-- Top bar -->
-        <div class="border-b border-gray-600 flex px-6 py-2 items-center flex-none shadow-xl">
+        <div class="border-b border-gray-800 flex px-6 py-2 items-center flex-none shadow-xl">
             <div class="flex flex-col">
                 <h3 class="text-white mb-1 font-bold text-xl text-gray-100">
-                    <span class="text-gray-400">#</span> general
+                    <span class="text-gray-400">#</span> {{ $conversation->name }}
                 </h3>
             </div>
         </div>
         <!-- Chat messages -->
-        <div class="px-6 py-4 flex-1 overflow-y-scroll">
-
-
-
-
+        <div class="px-6 py-4 flex-1 overflow-y-scroll" id="chat">
 
             <div class="flex flex-col max-h-[500px]">
 
@@ -28,212 +23,37 @@
 
                 <div class="grid grid-cols-12 gap-y-2">
 
-
-                                                                <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                        <div class="flex flex-row items-center">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
+                    @foreach ($chats as $chat)
+                        @if ($chat->user_id !== auth()->user()->id)
+                            <div class="col-start-1 col-end-8 p-3 rounded-lg">
+                                <div class="flex flex-row items-center">
+                                    <div
+                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-900 flex-shrink-0">
+                                        {{ auth()->user()->name[0] }}
+                                    </div>
+                                    <div class="relative ml-3 text-sm bg-gray-700 py-2 px-4 shadow rounded-xl">
+                                        <div class="text-white">{!! Illuminate\Support\Str::markdown($chat->content) !!}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                                <div>Aliquam corporis et vel dolor itaque recusandae vel. Blanditiis ea qui voluptates atque quod. Laudantium assumenda quia officiis id. Perferendis fuga sunt quos eaque id.</div>
+                        @else
+                            <div class="col-start-6 col-end-13 p-3 rounded-lg">
+                                <div class="flex items-center justify-start flex-row-reverse">
+                                    <div
+                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-900 flex-shrink-0">
+                                        {{ $chat->user->name[0] }}
+                                    </div>
+                                    <div class="relative mr-3 text-sm bg-indigo-800 py-2 px-4 shadow rounded-xl">
+
+
+                                        <div class="text-white">{!! Illuminate\Support\Str::markdown($chat->content) !!}</div>
+
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>fwefewf</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>ewfwefwef</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>hello</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>HI</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>how are you</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>hello</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>hello</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>dsfsdf</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>hi</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>24234234</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-                    <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                        <div class="flex items-center justify-start flex-row-reverse">
-                            <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                                D
-                            </div>
-                            <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                                <div>fdsf</div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
+                        @endif
+                    @endforeach
 
 
 
@@ -247,18 +67,65 @@
 
         </div>
         <div class="pb-6 px-4 flex-none">
-            <div class="flex rounded-lg overflow-hidden">
-                <span class="text-3xl text-grey border-r-4 border-gray-600 bg-gray-600 p-2">
-                    <svg class="h-6 w-6 block bg-gray-500 hover:bg-gray-400 cursor-pointer rounded-xl"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path
-                            d="M16 10c0 .553-.048 1-.601 1H11v4.399c0 .552-.447.601-1 .601-.553 0-1-.049-1-.601V11H4.601C4.049 11 4 10.553 4 10c0-.553.049-1 .601-1H9V4.601C9 4.048 9.447 4 10 4c.553 0 1 .048 1 .601V9h4.399c.553 0 .601.447.601 1z"
-                            fill="#FFFFFF" />
-                    </svg>
-                </span>
-                <input type="text" class="w-full px-4 bg-gray-600" placeholder="Message #general" />
-            </div>
+
+            <form class="flex flex-row items-center h-16 rounded-xl bg-gray-800 w-full px-4"
+                action="{{ route('chat.send', $conversation->id) }}" method="POST">
+
+                @csrf
+                <div>
+                    <button class="flex items-center justify-center text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex-grow ml-4">
+                    <div class="relative w-full">
+                        <input type="text" name="content" placeholder="Say something..."
+                            class="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10 bg-gray-800 text-white" />
+                        <button
+                            class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="ml-4">
+                    <button type="submit"
+                        class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-2 flex-shrink-0">
+                        <span>Send</span>
+                        <span class="ml-2">
+                            <svg class="w-4 h-4 transform rotate-45 -mt-px" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </form>
+
+
+
         </div>
     </div>
+
+    <script>
+        document.addEventListener('livewire:load', function () {
+
+
+                const chat = document.getElementById('chat');
+                chat.scrollTop = chat.scrollHeight;
+
+        })
+    </script>
+
 
 </x-app-layout>

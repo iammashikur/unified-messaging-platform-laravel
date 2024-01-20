@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Channel;
 use Illuminate\Support\Str;
+use Termwind\Components\Raw;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -58,12 +60,13 @@ class HomeController extends Controller
     public function channels($channel)
     {
         $channel = Channel::where('name', $channel)->first();
+        $conversations = $channel->conversations()->get();
 
         if (!$channel) {
             abort(404);
         }
 
-        return view('channels.index', compact('channel'));
+        return view('channels.index', compact('channel', 'conversations'));
     }
 
     public function install($channel)
@@ -105,10 +108,14 @@ class HomeController extends Controller
 
     }
 
-    public function conversation()
+    public function conversation(Request $request)
     {
 
-        return view('channels.conversation');
+        $channel = Channel::where('name', $request->channel)->first();
+        $conversations = $channel->conversations()->get();
+        $conversation = $channel->conversations()->findOrfail($request->conversation);
+        $chats = $conversation->chats()->get();
+        return view('channels.conversation' , compact('channel', 'conversations', 'conversation', 'chats'));
 
     }
 

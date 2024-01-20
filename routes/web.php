@@ -8,7 +8,10 @@ use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\ChatController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
+// Add missing imports
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,8 +58,18 @@ Route::prefix('/')
 
 
         Route::get('channels/{channel}/', [HomeController::class, 'channels'])->name('channels.show');
-        Route::get('channels/{channel}/{conversation}', [HomeController::class, 'conversation'])->name('channels.conversation');
+        Route::get('channels/{channel}/{conversation}', [HomeController::class, 'conversation'])->name('channels.conversation.show');
 
 
 
+        Route::get('ai', function () {
+
+
+
+
+
+
+
+
+        })->name('ai');
     });
