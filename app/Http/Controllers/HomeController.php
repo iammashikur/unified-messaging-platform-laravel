@@ -114,8 +114,18 @@ class HomeController extends Controller
         $channel = Channel::where('name', $request->channel)->first();
         $conversations = $channel->conversations()->get();
         $conversation = $channel->conversations()->findOrfail($request->conversation);
-        $chats = $conversation->chats()->get();
-        return view('channels.conversation' , compact('channel', 'conversations', 'conversation', 'chats'));
+
+        return view('channels.conversation' , compact('channel', 'conversations', 'conversation'));
+
+    }
+
+    public function cron(){
+
+        //http://xdroid.net/api/message?k=k-e315d78fb4c9&t=sample&c=from+google+Pixel+6a&u=http%3A%2F%2Fgoogle.com
+
+        file_get_contents('http://xdroid.net/api/message?k=k-e315d78fb4c9&t=sample&c=from+google+Pixel+6a&u=http%3A%2F%2Fgoogle.com');
+
+
 
     }
 

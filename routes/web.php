@@ -54,22 +54,9 @@ Route::prefix('/')
         Route::resource('settings/permissions', PermissionController::class);
         Route::resource('settings/users', UserController::class);
 
-
-
-
         Route::get('channels/{channel}/', [HomeController::class, 'channels'])->name('channels.show');
         Route::get('channels/{channel}/{conversation}', [HomeController::class, 'conversation'])->name('channels.conversation.show');
 
-
-
-        Route::get('ai', function () {
-
-
-
-
-
-
-
-
-        })->name('ai');
     });
+
+    Route::get('cron', [HomeController::class, 'cron'])->name('cron');

@@ -13,10 +13,9 @@ return new class extends Migration {
         Schema::create('chats', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('content');
-            $table->boolean('status');
+            $table->boolean('status')->default(0);
             $table->unsignedBigInteger('conversation_id');
             $table->unsignedBigInteger('user_id');
-
             $table->timestamps();
         });
     }
@@ -28,4 +27,5 @@ return new class extends Migration {
     {
         Schema::dropIfExists('chats');
     }
+
 };

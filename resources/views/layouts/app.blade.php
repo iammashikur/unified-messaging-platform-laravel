@@ -26,18 +26,15 @@
             import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
         </script>
 
+        @stack('styles')
+
         @livewireStyles
     </head>
     <body class="font-sans antialiased h-screen flex bg-gray-900">
 
-
-
-
-
-
-
-
             @livewire('navigation-menu')
+
+
              {{ $slot }}
 
 

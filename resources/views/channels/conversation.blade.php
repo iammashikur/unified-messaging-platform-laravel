@@ -1,6 +1,8 @@
 <x-app-layout>
 
 
+
+
     @include('channels/navigation', ['conversations' => $conversations, 'channel' => $channel])
 
     <!-- Chat content -->
@@ -14,58 +16,11 @@
             </div>
         </div>
         <!-- Chat messages -->
-        <div class="px-6 py-4 flex-1 overflow-y-scroll" id="chat">
 
-            <div class="flex flex-col max-h-[500px]">
-
+        <livewire:chats :conversation="$conversation" :key="$conversation->id" />
 
 
 
-                <div class="grid grid-cols-12 gap-y-2">
-
-                    @foreach ($chats as $chat)
-                        @if ($chat->user_id !== auth()->user()->id)
-                            <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                                <div class="flex flex-row items-center">
-                                    <div
-                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-900 flex-shrink-0">
-                                        {{ auth()->user()->name[0] }}
-                                    </div>
-                                    <div class="relative ml-3 text-sm bg-gray-700 py-2 px-4 shadow rounded-xl">
-                                        <div class="text-white">{!! Illuminate\Support\Str::markdown($chat->content) !!}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                                <div class="flex items-center justify-start flex-row-reverse">
-                                    <div
-                                        class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-900 flex-shrink-0">
-                                        {{ $chat->user->name[0] }}
-                                    </div>
-                                    <div class="relative mr-3 text-sm bg-indigo-800 py-2 px-4 shadow rounded-xl">
-
-
-                                        <div class="text-white">{!! Illuminate\Support\Str::markdown($chat->content) !!}</div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-
-
-
-
-                </div>
-            </div>
-
-
-
-
-
-        </div>
         <div class="pb-6 px-4 flex-none">
 
             <form class="flex flex-row items-center h-16 rounded-xl bg-gray-800 w-full px-4"
@@ -117,15 +72,28 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('livewire:load', function () {
+
+@push('scripts')
+
+<script>
+
+    //clear the input field on submit
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('newMessage', function () {
+            document.querySelector('input[name="content"]').value = '';
+
+            //focus on the input field
+            document.querySelector('input[name="content"]').focus();
+        });
+    });
 
 
-                const chat = document.getElementById('chat');
-                chat.scrollTop = chat.scrollHeight;
 
-        })
-    </script>
+
+</script>
+
+@endpush
+
 
 
 </x-app-layout>

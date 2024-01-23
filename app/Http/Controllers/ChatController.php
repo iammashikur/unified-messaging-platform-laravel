@@ -34,12 +34,14 @@ class ChatController extends Controller
 
         $channel = new $class();
 
-        if($channel->send($request->content, $conversation->id)){
-            return redirect()->back()->with('success', 'Message sent successfully.');
-        }
+        $channel->send($request->content, $conversation->id);
 
-        } catch(Exception $e){
-            return redirect()->back()->with('error', 'Message not sent.');
+
+        return redirect()->back();
+
+
+        } catch(\Throwable $th){
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
