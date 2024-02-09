@@ -77,7 +77,7 @@ class HomeController extends Controller
             try{
                 $channel = Str::ucfirst($channel);
 
-                include_once app_path('channels') . '/' . $channel . '/channel.php';
+                include_once app_path('channels') . '/' . Str::lower($channel) . '/channel.php';
 
                 $clannel = new $channel();
 
@@ -94,7 +94,7 @@ class HomeController extends Controller
         try {
             $channel = Str::ucfirst($channel);
 
-            include_once app_path('channels') . '/' . $channel . '/channel.php';
+            include_once app_path('channels') . '/' .  Str::lower($channel). '/channel.php';
 
             $clannel = new $channel();
 

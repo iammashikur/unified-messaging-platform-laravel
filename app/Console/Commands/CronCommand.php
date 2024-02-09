@@ -41,7 +41,7 @@ class CronCommand extends Command
             //get channel class
             $channelClass = Str::ucfirst($channel->name);
             //include channel class
-            include_once app_path('channels') . '/' . $channel->name . '/channel.php';
+            include_once app_path('channels') . '/' . Str::lower($channel->name) . '/channel.php';
             //create channel object
             $channelObject = new $channelClass();
             //get channel response

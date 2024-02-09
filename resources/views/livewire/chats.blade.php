@@ -29,7 +29,18 @@
             $chats = $chats->reverse();
         @endphp
         @foreach ($chats as $chat)
-                @if ($chat->user_id !== auth()->user()->id)
+
+        @php
+
+            //get current channel
+            $channel = $chat->conversation->channel->name;
+            $user = \App\Models\User::Where('name', $channel)->first();
+
+        @endphp
+
+
+                @if ($chat->user_id !== $user->id)
+      	
                     <div class="col-start-1 col-end-8 p-3 rounded-lg">
                         <div class="flex flex-row items-center">
                             <div

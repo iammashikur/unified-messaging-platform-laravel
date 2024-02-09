@@ -28,7 +28,7 @@ class ChatController extends Controller
         //load channel class
 
 
-        include_once app_path('channels') . '/' . $channel->name . '/channel.php';
+        include_once app_path('channels') . '/' . Str::lower($channel->name) . '/channel.php';
 
         $class = Str::ucfirst($channel->name);
 

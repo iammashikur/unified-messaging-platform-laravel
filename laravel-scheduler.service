@@ -1,0 +1,12 @@
+[Unit]
+Description=Laravel Scheduler
+
+[Service]
+ExecStart=/usr/bin/php8.2 /home/whms-chat/htdocs/chat.whms.live/artisan schedule:work
+Restart=always
+User=whms-chat
+Group=whms-chat
+WorkingDirectory=/home/whms-chat/htdocs/chat.whms.live/
+
+[Install]
+WantedBy=default.target
